@@ -32,6 +32,9 @@
     ::-webkit-scrollbar-thumb { background:#cbd5e1; border-radius:3px; }
     .progress-bar { transition: width 0.5s ease; }
     #toast { transition: opacity 0.3s ease, transform 0.3s ease; }
+    .stat-btn { transition: all 0.15s ease; cursor: pointer; }
+    .stat-btn.active { ring: 2px; transform: translateY(-1px); box-shadow: 0 4px 12px -2px rgb(0 0 0 / 0.2); }
+    .stat-btn:hover { transform: translateY(-2px); }
   </style>
 </head>
 <body class="bg-slate-50 min-h-screen">
@@ -74,8 +77,8 @@
 
   <div class="max-w-screen-2xl mx-auto px-6 py-6 space-y-6">
 
-    <!-- STATS ROW -->
-    <div id="stats-row" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+    <!-- STATS ROW (clickable status filters) -->
+    <div id="stats-row" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-3">
       <!-- filled by JS -->
     </div>
 
@@ -234,6 +237,7 @@
 let allIdeas = [];
 let filtered = [];
 let charts = {};
+let activeStatusFilter = null;
 
 const STATUS_ORDER = ['Listo','Listo para entrega','Desarrollo','UI','Discovery','Temas pendientes'];
 
@@ -328,12 +332,13 @@ function applyFilters() {
   const search   = document.getElementById('search-input').value.toLowerCase().trim();
   const sort     = document.getElementById('sort-select').value;
 
-  let activeCount = [viaje2, plat, entrega, objetivo, segmento, rice, search].filter(Boolean).length;
+  let activeCount = [viaje2, plat, entrega, objetivo, segmento, rice, search, activeStatusFilter].filter(Boolean).length;
   const badge = document.getElementById('active-filters-badge');
   if (activeCount > 0) { badge.textContent = activeCount; badge.classList.remove('hidden'); }
   else { badge.classList.add('hidden'); }
 
   filtered = allIdeas.filter(idea => {
+    if (activeStatusFilter && idea.status !== activeStatusFilter) return false;
     if (viaje2   && idea.viaje2 !== viaje2) return false;
     if (plat     && !idea.plataforma.includes(plat)) return false;
     if (entrega === 'sin-datos' && idea.estado_entrega !== null) return false;
@@ -341,7 +346,7 @@ function applyFilters() {
     if (rice === 'con-rice' && idea.rice_score === null) return false;
     if (rice === 'sin-rice' && idea.rice_score !== null) return false;
     if (objetivo && (!idea.objetivo_proyecto || !idea.objetivo_proyecto.start || !idea.objetivo_proyecto.start.startsWith(objetivo))) return false;
-    if (search && !idea.summary.toLowerCase().includes(search) && !idea.key.toLowerCase().includes(search)) return false;
+    if (search && !idea.summary.toLowerCase().includes(search) && !idea.key.toLowerCase().includes(search) && !(idea.descripcion_breve||'').toLowerCase().includes(search)) return false;
     return true;
   });
 
@@ -398,13 +403,18 @@ function renderCards() {
          </div>`
       : '';
 
+    const desc = idea.descripcion_breve
+      ? `<p class="text-xs text-slate-400 leading-relaxed mt-1.5 line-clamp-2">${idea.descripcion_breve}</p>`
+      : '';
+
     return `
     <a href="${idea.url}" target="_blank" class="block bg-white rounded-2xl border border-slate-200 p-4 card-hover shadow-sm group">
       <div class="flex items-start justify-between gap-2 mb-3">
         <span class="text-xs font-mono text-slate-400 group-hover:text-blue-500 transition-colors">${idea.key}</span>
         <span class="chip ${statusClass} shrink-0">${idea.status}</span>
       </div>
-      <h3 class="text-sm font-semibold text-slate-800 leading-snug mb-2 line-clamp-2 group-hover:text-blue-700 transition-colors">${idea.summary}</h3>
+      <h3 class="text-sm font-semibold text-slate-800 leading-snug mb-1 line-clamp-2 group-hover:text-blue-700 transition-colors">${idea.summary}</h3>
+      ${desc}
       ${viaje2}
       <div class="mt-3 space-y-2">
         ${platChips ? `<div class="flex flex-wrap gap-1">${platChips}</div>` : ''}
@@ -419,29 +429,54 @@ function renderCards() {
   }).join('');
 }
 
+// ── Status filter via stat card ────────────────────────────────────────
+function toggleStatusFilter(status) {
+  activeStatusFilter = (activeStatusFilter === status) ? null : status;
+  applyFilters();
+}
+
 // ── Render stats ───────────────────────────────────────────────────────
 function renderStats() {
-  const counts = {};
-  STATUS_ORDER.forEach(s => counts[s] = 0);
-  filtered.forEach(i => { if (counts[i.status] !== undefined) counts[i.status]++; else counts['Temas pendientes']++; });
+  // Count from ALL ideas (not filtered) so totals are always visible
+  const totalCounts = {};
+  STATUS_ORDER.forEach(s => totalCounts[s] = 0);
+  allIdeas.forEach(i => { if (totalCounts[i.status] !== undefined) totalCounts[i.status]++; });
 
   const statsRow = document.getElementById('stats-row');
-  const total = filtered.length;
+  const total = allIdeas.length;
+
   const statDefs = [
-    { label: 'Total', value: total, color: 'bg-slate-800', text: 'text-white' },
-    { label: 'Listo', value: counts['Listo'], color: 'bg-green-50 border border-green-200', text: 'text-green-700' },
-    { label: 'Desarrollo', value: counts['Desarrollo'], color: 'bg-blue-50 border border-blue-200', text: 'text-blue-700' },
-    { label: 'Discovery', value: counts['Discovery'], color: 'bg-violet-50 border border-violet-200', text: 'text-violet-700' },
-    { label: 'UI', value: counts['UI'], color: 'bg-orange-50 border border-orange-200', text: 'text-orange-700' },
-    { label: 'Pendientes', value: counts['Temas pendientes'] + (counts['Listo para entrega'] || 0), color: 'bg-slate-50 border border-slate-200', text: 'text-slate-600' },
+    { label: 'Todos', value: total, status: null,
+      bg: 'bg-slate-800', text: 'text-white', activeBg: 'bg-slate-700', ring: 'ring-slate-500' },
+    { label: 'Listo', value: totalCounts['Listo'], status: 'Listo',
+      bg: 'bg-green-50 border border-green-200', text: 'text-green-700', activeBg: 'bg-green-200', ring: 'ring-green-500' },
+    { label: 'Listo p/entrega', value: totalCounts['Listo para entrega'], status: 'Listo para entrega',
+      bg: 'bg-emerald-50 border border-emerald-200', text: 'text-emerald-700', activeBg: 'bg-emerald-200', ring: 'ring-emerald-500' },
+    { label: 'Desarrollo', value: totalCounts['Desarrollo'], status: 'Desarrollo',
+      bg: 'bg-blue-50 border border-blue-200', text: 'text-blue-700', activeBg: 'bg-blue-200', ring: 'ring-blue-500' },
+    { label: 'Discovery', value: totalCounts['Discovery'], status: 'Discovery',
+      bg: 'bg-violet-50 border border-violet-200', text: 'text-violet-700', activeBg: 'bg-violet-200', ring: 'ring-violet-500' },
+    { label: 'UI', value: totalCounts['UI'], status: 'UI',
+      bg: 'bg-orange-50 border border-orange-200', text: 'text-orange-700', activeBg: 'bg-orange-200', ring: 'ring-orange-500' },
+    { label: 'Pendientes', value: totalCounts['Temas pendientes'], status: 'Temas pendientes',
+      bg: 'bg-slate-50 border border-slate-200', text: 'text-slate-600', activeBg: 'bg-slate-200', ring: 'ring-slate-400' },
   ];
 
-  statsRow.innerHTML = statDefs.map(s => `
-    <div class="${s.color} rounded-2xl p-4 shadow-sm">
+  statsRow.innerHTML = statDefs.map(s => {
+    const isActive = activeStatusFilter === s.status;
+    const activeCls = isActive ? `${s.activeBg} ring-2 ${s.ring}` : s.bg;
+    const title = s.status ? `Filtrar por: ${s.label}` : 'Ver todos';
+    return `
+    <button onclick="toggleStatusFilter(${s.status ? `'${s.status}'` : 'null'})"
+      title="${title}"
+      class="stat-btn ${activeCls} rounded-2xl p-4 shadow-sm text-left w-full ${isActive ? 'active' : ''}">
       <p class="text-2xl font-bold ${s.text}">${s.value}</p>
-      <p class="text-xs font-medium ${s.text} opacity-70 mt-0.5">${s.label}</p>
-    </div>
-  `).join('');
+      <div class="flex items-center justify-between mt-0.5">
+        <p class="text-xs font-medium ${s.text} opacity-70">${s.label}</p>
+        ${isActive ? `<span class="text-xs ${s.text} opacity-60">✕</span>` : ''}
+      </div>
+    </button>`;
+  }).join('');
 
   // Progress bars
   const pbContainer = document.getElementById('progress-bars');
@@ -520,6 +555,7 @@ function clearFilters() {
     document.getElementById(id).value = '';
   });
   document.getElementById('search-input').value = '';
+  activeStatusFilter = null;
   applyFilters();
 }
 

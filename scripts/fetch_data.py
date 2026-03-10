@@ -26,7 +26,10 @@ FIELDS    = ",".join([
     "customfield_10725",   # Objetivo del proyecto
     "customfield_10721",   # Segmentos de usuario
     "customfield_10732",   # Puntuacion RICE
+    "customfield_10729",   # Descripción breve de la idea
 ])
+
+DISCARD_VALUES = {"Un valor nuevo", "Sin valor"}
 
 
 def get_auth_header():
@@ -81,17 +84,24 @@ def fetch_issues(headers):
                 elif isinstance(raw_obj, dict):
                     objetivo = raw_obj
 
+            viaje2 = (fields.get("customfield_10719") or {}).get("value")
+
+            # Skip ideas with placeholder/invalid values
+            if viaje2 in DISCARD_VALUES:
+                continue
+
             ideas.append({
                 "key": issue["key"],
                 "summary": fields.get("summary", ""),
                 "status": (fields.get("status") or {}).get("name", ""),
-                "viaje2": (fields.get("customfield_10719") or {}).get("value"),
+                "viaje2": viaje2,
                 "plataforma": [opt["value"] for opt in (fields.get("customfield_10733") or [])],
                 "estado_entrega": fields.get("customfield_10327"),
                 "objetivo_proyecto": objetivo,
                 "segmentos_usuario": [opt["value"] for opt in (fields.get("customfield_10721") or [])],
                 "rice_score": fields.get("customfield_10732"),
-                "url": f"{JIRA_BASE}/browse/{issue['key']}",
+                "descripcion_breve": fields.get("customfield_10729"),
+                "url": f"{JIRA_BASE}/jira/polaris/projects/{PROJECT}/ideas/idea/{issue['key']}",
             })
 
         next_page_token = data.get("nextPageToken")
