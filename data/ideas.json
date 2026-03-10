@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-03-10T19:38:56Z",
+  "last_updated": "2026-03-10T19:51:15Z",
   "total": 57,
   "ideas": [
     {
@@ -25,7 +25,8 @@
         "Cliente"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-61"
+      "descripcion_breve": "adsfsfs",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-61"
     },
     {
       "key": "VC-60",
@@ -37,7 +38,8 @@
       "objetivo_proyecto": null,
       "segmentos_usuario": [],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-60"
+      "descripcion_breve": null,
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-60"
     },
     {
       "key": "VC-59",
@@ -49,7 +51,8 @@
       "objetivo_proyecto": null,
       "segmentos_usuario": [],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-59"
+      "descripcion_breve": null,
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-59"
     },
     {
       "key": "VC-58",
@@ -68,7 +71,8 @@
         "Colaborador"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-58"
+      "descripcion_breve": null,
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-58"
     },
     {
       "key": "VC-57",
@@ -84,7 +88,8 @@
         "Cliente"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-57"
+      "descripcion_breve": "Mediante el AV poder agendar visita a sucursal con ejecutivo, piloto en la Dehesa",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-57"
     },
     {
       "key": "VC-56",
@@ -96,7 +101,8 @@
       "objetivo_proyecto": null,
       "segmentos_usuario": [],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-56"
+      "descripcion_breve": "Habilitar el pago digital para los clientes que no quieren pasar por caja y quieren pagar directamente ",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-56"
     },
     {
       "key": "VC-55",
@@ -110,7 +116,8 @@
         "Cliente"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-55"
+      "descripcion_breve": "Permite al cliente comprar en sucursal mediante un QR en el catalogo de stock de la sucursal, genera pedido en caja para pago y luego retiro en bodega",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-55"
     },
     {
       "key": "VC-54",
@@ -129,7 +136,8 @@
         "Colaborador"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-54"
+      "descripcion_breve": "Generar indicadores de uso de la plataforma Eleva\ndiario/semanal por asesor",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-54"
     },
     {
       "key": "VC-53",
@@ -145,7 +153,8 @@
         "Colaborador"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-53"
+      "descripcion_breve": "En venta digital de eleva, se debe mostrar si el cliente cuenta con Garantia para su vehículo\n\nGarantia General\nGaranta Extendida",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-53"
     },
     {
       "key": "VC-52",
@@ -164,7 +173,8 @@
         "Colaborador"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-52"
+      "descripcion_breve": "Tener información dentro de venta digital de Eleva, de la ultima vez que se contacto al cliente, \ndebe proporcionar información de si el cliente ha sido contactado dentro de un año, ",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-52"
     },
     {
       "key": "VC-51",
@@ -180,7 +190,8 @@
         "Colaborador"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-51"
+      "descripcion_breve": "Poder ver la ultima OT y el estado de garantía en los vehiculos.",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-51"
     },
     {
       "key": "VC-50",
@@ -196,7 +207,8 @@
         "Colaborador"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-50"
+      "descripcion_breve": "Mostrar los productos que No tiene el cliente al asesor para generar una cotizacion",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-50"
     },
     {
       "key": "VC-49",
@@ -216,7 +228,8 @@
         "Cliente"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-49"
+      "descripcion_breve": "Poder filtrar de manera rapida los productos de venta digital",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-49"
     },
     {
       "key": "VC-48",
@@ -232,7 +245,8 @@
         "Cliente"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-48"
+      "descripcion_breve": "Contar con un proceso de pago flexible que nos permita paquetizar productos y generar ofertas atractivas hacia el usuario",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-48"
     },
     {
       "key": "VC-47",
@@ -251,7 +265,8 @@
         "Colaborador"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-47"
+      "descripcion_breve": null,
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-47"
     },
     {
       "key": "VC-46",
@@ -263,7 +278,8 @@
       "objetivo_proyecto": null,
       "segmentos_usuario": [],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-46"
+      "descripcion_breve": null,
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-46"
     },
     {
       "key": "VC-44",
@@ -282,7 +298,8 @@
         "Colaborador"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-44"
+      "descripcion_breve": "Avisarle al colaborador de que el cliente llego a sucursal y entregarle informacion acerca de este y su flota de vehiculos",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-44"
     },
     {
       "key": "VC-43",
@@ -301,7 +318,8 @@
         "Cliente"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-43"
+      "descripcion_breve": "La app Kaufmann debe confirmar el agendamiento con el cliente y guisrlo en los pasos siguientes",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-43"
     },
     {
       "key": "VC-42",
@@ -321,7 +339,8 @@
         "Cliente"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-42"
+      "descripcion_breve": "Cliente recibe un onboarding en la APP para su creacion de perfil y para poder adquirir productos y servicios de PostVenta\n",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-42"
     },
     {
       "key": "VC-41",
@@ -337,7 +356,8 @@
         "Cliente"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-41"
+      "descripcion_breve": "Poder agendar directamente eventos de mantencion desde la app kaufmann",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-41"
     },
     {
       "key": "VC-39",
@@ -353,7 +373,8 @@
         "Cliente"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-39"
+      "descripcion_breve": "Cliente recibe de manera anticipada el aviso que su vehiculo debe venir a mantencion",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-39"
     },
     {
       "key": "VC-38",
@@ -372,7 +393,8 @@
         "Cliente"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-38"
+      "descripcion_breve": "Cliente debe tener su perfil lo mas completo posible para abordarlo con notificaciones operativas y IA integrada a su necesidad (reportes, KPI's, etc)",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-38"
     },
     {
       "key": "VC-37",
@@ -388,7 +410,8 @@
         "Cliente"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-37"
+      "descripcion_breve": null,
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-37"
     },
     {
       "key": "VC-36",
@@ -404,7 +427,8 @@
         "Cliente"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-36"
+      "descripcion_breve": "Implementar dentro del asistente virtual la funcionalidad Ocular, que permita al cliente optar por continuar la atención a través de una videollamada con un ejecutivo de ventas.",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-36"
     },
     {
       "key": "VC-35",
@@ -423,7 +447,8 @@
         "Cliente"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-35"
+      "descripcion_breve": "Entregar un PDF al cliente al momento de cotizar un Mercedes-Benz a través del WhatsApp que incluya imagen del vehículo, Precio lista, Precio oferta y valor cuota financiamiento.",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-35"
     },
     {
       "key": "VC-34",
@@ -442,7 +467,8 @@
         "Cliente"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-34"
+      "descripcion_breve": null,
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-34"
     },
     {
       "key": "VC-31",
@@ -458,7 +484,8 @@
         "Colaborador"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-31"
+      "descripcion_breve": "Integrar DIMO en venta digital para que pueda ser ofrecido a clientes.",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-31"
     },
     {
       "key": "VC-30",
@@ -479,7 +506,8 @@
         "Cliente"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-30"
+      "descripcion_breve": "Seccion donde el cliente puede comprar productos y servicios de postventa",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-30"
     },
     {
       "key": "VC-29",
@@ -500,7 +528,8 @@
         "Cliente"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-29"
+      "descripcion_breve": "Seccion donde el cliente puede comprar productos y servicios de postventa",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-29"
     },
     {
       "key": "VC-28",
@@ -516,7 +545,8 @@
         "Cliente"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-28"
+      "descripcion_breve": "Que el cliente pueda obtener todos los documentos de su vehiculo a través de la app en el momento de la entrega",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-28"
     },
     {
       "key": "VC-27",
@@ -532,7 +562,8 @@
         "Cliente"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-27"
+      "descripcion_breve": "Que el cliente pueda revisar el tracking de su vehiculo / Repuesto en el momento de la entrega",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-27"
     },
     {
       "key": "VC-26",
@@ -548,7 +579,8 @@
         "Cliente"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-26"
+      "descripcion_breve": null,
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-26"
     },
     {
       "key": "VC-25",
@@ -562,7 +594,8 @@
         "Cliente"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-25"
+      "descripcion_breve": null,
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-25"
     },
     {
       "key": "VC-24",
@@ -578,7 +611,8 @@
         "Cliente"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-24"
+      "descripcion_breve": null,
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-24"
     },
     {
       "key": "VC-23",
@@ -594,7 +628,8 @@
         "Cliente"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-23"
+      "descripcion_breve": null,
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-23"
     },
     {
       "key": "VC-22",
@@ -610,7 +645,8 @@
         "Cliente"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-22"
+      "descripcion_breve": null,
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-22"
     },
     {
       "key": "VC-21",
@@ -626,7 +662,8 @@
         "Cliente"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-21"
+      "descripcion_breve": "Entregar una imagen al momento de seleccionar un modelo para continuar con el flujo de cotización.",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-21"
     },
     {
       "key": "VC-20",
@@ -645,7 +682,8 @@
         "Colaborador"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-20"
+      "descripcion_breve": "Plataforma interna que permite gestionar la flota de vehiculos Test Drive",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-20"
     },
     {
       "key": "VC-19",
@@ -664,7 +702,8 @@
         "Cliente"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-19"
+      "descripcion_breve": "Tomar los datos desde bloomreach cuando ya tengamos los datos del cliente con la opción de modificación. Considerando un historial de 6 meses considerando desde Agosto 2025 hasta la fecha de consulta.",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-19"
     },
     {
       "key": "VC-18",
@@ -683,7 +722,8 @@
         "Colaborador"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-18"
+      "descripcion_breve": "que los ejecutivos de vemnta púedan entrar a una plataforma de analisis de ventas, que a travpés de datos de cliente, parque vehicular, actividad y telemetría, pueda entregar",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-18"
     },
     {
       "key": "VC-17",
@@ -702,7 +742,8 @@
         "Cliente"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-17"
+      "descripcion_breve": "Que el cliente pueda pagar por servicvios y productos Kaufmann a través de APP kaufmann, Mi Portal y Asistente Virtual",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-17"
     },
     {
       "key": "VC-16",
@@ -718,7 +759,8 @@
         "Colaborador"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-16"
+      "descripcion_breve": "Incluir KPI de Cotización Vs Paso vehicular en panel de asesor y administración de Eleva",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-16"
     },
     {
       "key": "VC-15",
@@ -734,7 +776,8 @@
         "Cliente"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-15"
+      "descripcion_breve": null,
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-15"
     },
     {
       "key": "VC-14",
@@ -753,7 +796,8 @@
         "Cliente"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-14"
+      "descripcion_breve": "Seccion donde el cliente puede agendar su visita al taller para cualquiera de sus vehiculos",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-14"
     },
     {
       "key": "VC-13",
@@ -772,7 +816,8 @@
         "Cliente"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-13"
+      "descripcion_breve": "Que el cliente pueda revisar el tracking de su vehiculo / Repuesto en el momento de la entrega",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-13"
     },
     {
       "key": "VC-12",
@@ -791,7 +836,8 @@
         "Cliente"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-12"
+      "descripcion_breve": "Seccion donde el cliente puede ver su flota de vehiculos general",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-12"
     },
     {
       "key": "VC-11",
@@ -810,7 +856,8 @@
         "Cliente"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-11"
+      "descripcion_breve": "Permite revisar el estado de mis contratos de mantenimientoi",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-11"
     },
     {
       "key": "VC-10",
@@ -829,7 +876,8 @@
         "Cliente"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-10"
+      "descripcion_breve": "Sección donde el cliente puede hacer seguimiento a todos los vehículos de su taller",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-10"
     },
     {
       "key": "VC-9",
@@ -848,7 +896,8 @@
         "Cliente"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-9"
+      "descripcion_breve": null,
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-9"
     },
     {
       "key": "VC-8",
@@ -865,7 +914,8 @@
         "Cliente"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-8"
+      "descripcion_breve": "Permite cotizar repuestos sugeridos a través de Eleva",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-8"
     },
     {
       "key": "VC-7",
@@ -884,7 +934,8 @@
         "Colaborador"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-7"
+      "descripcion_breve": "Permite administrar la performance y KPI de mi fuerza de venta en Eleva",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-7"
     },
     {
       "key": "VC-6",
@@ -903,7 +954,8 @@
         "Cliente"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-6"
+      "descripcion_breve": "Cotizaciones mas claras hacia el usuario y en conformidad con contabilidad de GK.",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-6"
     },
     {
       "key": "VC-5",
@@ -922,7 +974,8 @@
         "Colaborador"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-5"
+      "descripcion_breve": "Permite saber estados de OT cliente, actividad de contacto y flota. El objetivo es empoderar al colaborador con informacion de su cliente",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-5"
     },
     {
       "key": "VC-4",
@@ -941,7 +994,8 @@
         "Cliente"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-4"
+      "descripcion_breve": "Poder descargar los certificados de las maquinarias de manera automatica",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-4"
     },
     {
       "key": "VC-3",
@@ -960,7 +1014,8 @@
         "Colaborador"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-3"
+      "descripcion_breve": "Permite integrar pagos manuales a través de Eleva de todos los productos",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-3"
     },
     {
       "key": "VC-2",
@@ -980,7 +1035,8 @@
         "Cliente"
       ],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-2"
+      "descripcion_breve": "Permite revisar la telemetría de mis vehiculos comerciales.",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-2"
     },
     {
       "key": "VC-1",
@@ -992,7 +1048,8 @@
       "objetivo_proyecto": null,
       "segmentos_usuario": [],
       "rice_score": null,
-      "url": "https://elevaap.atlassian.net/browse/VC-1"
+      "descripcion_breve": null,
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-1"
     }
   ]
 }
