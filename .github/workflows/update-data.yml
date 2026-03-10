@@ -22,6 +22,19 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Debug secrets presence
+        run: |
+          if [ -z "${{ secrets.JIRA_EMAIL }}" ]; then
+            echo "❌ JIRA_EMAIL is empty or not found"
+          else
+            echo "✅ JIRA_EMAIL is set"
+          fi
+          if [ -z "${{ secrets.JIRA_API_TOKEN }}" ]; then
+            echo "❌ JIRA_API_TOKEN is empty or not found"
+          else
+            echo "✅ JIRA_API_TOKEN is set"
+          fi
+
       - name: Fetch data from Jira Polaris
         env:
           JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
