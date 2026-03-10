@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Viaje 2: Servicio de Mantención — Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    * { font-family: 'Inter', sans-serif; }
+    .status-listo           { background:#dcfce7; color:#166534; border-color:#86efac; }
+    .status-listo-entrega   { background:#d1fae5; color:#065f46; border-color:#6ee7b7; }
+    .status-desarrollo      { background:#dbeafe; color:#1e40af; border-color:#93c5fd; }
+    .status-discovery       { background:#ede9fe; color:#5b21b6; border-color:#c4b5fd; }
+    .status-ui              { background:#ffedd5; color:#9a3412; border-color:#fdba74; }
+    .status-pendientes      { background:#f1f5f9; color:#475569; border-color:#cbd5e1; }
+    .chip { display:inline-flex;align-items:center;padding:2px 8px;border-radius:9999px;font-size:11px;font-weight:500;border-width:1px; }
+    .plat-eleva    { background:#eff6ff; color:#1d4ed8; border-color:#bfdbfe; }
+    .plat-portal   { background:#fdf4ff; color:#7e22ce; border-color:#e9d5ff; }
+    .plat-app      { background:#fff7ed; color:#c2410c; border-color:#fed7aa; }
+    .plat-asist    { background:#f0fdf4; color:#166534; border-color:#bbf7d0; }
+    .plat-copiloto { background:#fefce8; color:#854d0e; border-color:#fef08a; }
+    .plat-klicker  { background:#fdf2f8; color:#9d174d; border-color:#fbcfe8; }
+    .seg-colaborador { background:#e0f2fe; color:#0369a1; border-color:#7dd3fc; }
+    .seg-cliente     { background:#fce7f3; color:#be185d; border-color:#f9a8d4; }
+    .card-hover { transition: transform 0.15s ease, box-shadow 0.15s ease; }
+    .card-hover:hover { transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.1); }
+    .filter-select { appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 10px center; }
+    ::-webkit-scrollbar { width:6px; }
+    ::-webkit-scrollbar-track { background:#f1f5f9; }
+    ::-webkit-scrollbar-thumb { background:#cbd5e1; border-radius:3px; }
+    .progress-bar { transition: width 0.5s ease; }
+    #toast { transition: opacity 0.3s ease, transform 0.3s ease; }
+  </style>
+</head>
+<body class="bg-slate-50 min-h-screen">
+
+  <!-- HEADER -->
+  <header class="bg-gradient-to-r from-slate-900 via-slate-800 to-blue-900 text-white shadow-xl sticky top-0 z-50">
+    <div class="max-w-screen-2xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <div class="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center shadow-lg">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-xl font-bold leading-tight">Viajes Clientes — Dashboard</h1>
+          <p class="text-blue-300 text-xs">Viaje 2: Servicio de Mantención · Kaufmann LAB</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-6">
+        <div class="text-right hidden sm:block">
+          <p class="text-xs text-slate-400">Última actualización</p>
+          <p id="last-updated" class="text-sm font-semibold text-blue-200">—</p>
+        </div>
+        <div id="live-badge" class="flex items-center gap-2 bg-green-500/20 border border-green-500/40 rounded-full px-3 py-1.5">
+          <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+          <span class="text-green-300 text-xs font-medium">Live</span>
+        </div>
+        <a href="https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/view/10819094"
+           target="_blank"
+           class="hidden sm:flex items-center gap-1.5 bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium px-3 py-1.5 rounded-lg transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"/>
+            <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"/>
+          </svg>
+          Ver en Jira
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div class="max-w-screen-2xl mx-auto px-6 py-6 space-y-6">
+
+    <!-- STATS ROW -->
+    <div id="stats-row" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+      <!-- filled by JS -->
+    </div>
+
+    <!-- PROGRESS BARS -->
+    <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+      <h2 class="text-sm font-semibold text-slate-700 mb-4">Distribución por Estado</h2>
+      <div id="progress-bars" class="space-y-3"></div>
+    </div>
+
+    <!-- FILTERS -->
+    <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L13 13.414V19a1 1 0 01-.553.894l-4 2A1 1 0 017 21v-7.586L3.293 6.707A1 1 0 013 6V4z"/>
+          </svg>
+          <h2 class="text-sm font-semibold text-slate-700">Filtros</h2>
+          <span id="active-filters-badge" class="hidden bg-blue-100 text-blue-700 text-xs font-bold px-2 py-0.5 rounded-full"></span>
+        </div>
+        <button onclick="clearFilters()" class="text-xs text-slate-400 hover:text-slate-700 underline transition-colors">Limpiar filtros</button>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3">
+
+        <!-- Viaje 2 -->
+        <div class="space-y-1">
+          <label class="text-xs font-medium text-slate-500 uppercase tracking-wide">Viaje 2</label>
+          <select id="filter-viaje2" onchange="applyFilters()"
+            class="filter-select w-full text-sm border border-slate-200 rounded-lg px-3 py-2 bg-white text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            <option value="">Todos</option>
+          </select>
+        </div>
+
+        <!-- Plataforma -->
+        <div class="space-y-1">
+          <label class="text-xs font-medium text-slate-500 uppercase tracking-wide">Plataforma</label>
+          <select id="filter-plataforma" onchange="applyFilters()"
+            class="filter-select w-full text-sm border border-slate-200 rounded-lg px-3 py-2 bg-white text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            <option value="">Todas</option>
+          </select>
+        </div>
+
+        <!-- Estado de la entrega -->
+        <div class="space-y-1">
+          <label class="text-xs font-medium text-slate-500 uppercase tracking-wide">Estado Entrega</label>
+          <select id="filter-entrega" onchange="applyFilters()"
+            class="filter-select w-full text-sm border border-slate-200 rounded-lg px-3 py-2 bg-white text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            <option value="">Todos</option>
+            <option value="sin-datos">Sin datos</option>
+          </select>
+        </div>
+
+        <!-- Objetivo del proyecto -->
+        <div class="space-y-1">
+          <label class="text-xs font-medium text-slate-500 uppercase tracking-wide">Objetivo Proyecto</label>
+          <select id="filter-objetivo" onchange="applyFilters()"
+            class="filter-select w-full text-sm border border-slate-200 rounded-lg px-3 py-2 bg-white text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            <option value="">Todos</option>
+          </select>
+        </div>
+
+        <!-- Segmento -->
+        <div class="space-y-1">
+          <label class="text-xs font-medium text-slate-500 uppercase tracking-wide">Segmento Usuario</label>
+          <select id="filter-segmento" onchange="applyFilters()"
+            class="filter-select w-full text-sm border border-slate-200 rounded-lg px-3 py-2 bg-white text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            <option value="">Todos</option>
+          </select>
+        </div>
+
+        <!-- RICE Score -->
+        <div class="space-y-1">
+          <label class="text-xs font-medium text-slate-500 uppercase tracking-wide">RICE Score</label>
+          <select id="filter-rice" onchange="applyFilters()"
+            class="filter-select w-full text-sm border border-slate-200 rounded-lg px-3 py-2 bg-white text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            <option value="">Todos</option>
+            <option value="con-rice">Con puntuación</option>
+            <option value="sin-rice">Sin puntuación</option>
+          </select>
+        </div>
+
+      </div>
+
+      <!-- Search -->
+      <div class="mt-3">
+        <div class="relative">
+          <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+          <input id="search-input" type="text" placeholder="Buscar ideas..." oninput="applyFilters()"
+            class="w-full pl-10 pr-4 py-2 text-sm border border-slate-200 rounded-lg bg-white text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULTS HEADER -->
+    <div class="flex items-center justify-between">
+      <p id="results-count" class="text-sm text-slate-500"></p>
+      <div class="flex items-center gap-2">
+        <span class="text-xs text-slate-400">Ordenar por:</span>
+        <select id="sort-select" onchange="applyFilters()"
+          class="filter-select text-xs border border-slate-200 rounded-lg px-2 py-1.5 bg-white text-slate-600 focus:outline-none">
+          <option value="key-desc">Más reciente</option>
+          <option value="key-asc">Más antiguo</option>
+          <option value="status">Estado</option>
+          <option value="rice-desc">RICE ↓</option>
+          <option value="summary">Nombre A-Z</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- CARDS GRID -->
+    <div id="cards-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
+      <!-- filled by JS -->
+    </div>
+
+    <!-- EMPTY STATE -->
+    <div id="empty-state" class="hidden text-center py-20">
+      <div class="text-slate-300 mb-4">
+        <svg class="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+      </div>
+      <p class="text-slate-500 font-medium">No se encontraron ideas</p>
+      <p class="text-slate-400 text-sm mt-1">Prueba ajustando los filtros</p>
+      <button onclick="clearFilters()" class="mt-4 text-blue-600 text-sm underline">Limpiar filtros</button>
+    </div>
+
+    <!-- CHART ROW -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-2">
+      <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+        <h3 class="text-sm font-semibold text-slate-700 mb-4">Ideas por Plataforma</h3>
+        <canvas id="chart-plataforma" height="200"></canvas>
+      </div>
+      <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+        <h3 class="text-sm font-semibold text-slate-700 mb-4">Ideas por Segmento de Usuario</h3>
+        <canvas id="chart-segmento" height="200"></canvas>
+      </div>
+    </div>
+
+    <footer class="text-center text-xs text-slate-400 py-4">
+      Datos sincronizados desde Jira Polaris · Proyecto VC · Kaufmann LAB
+      · <a href="https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/view/10819094" target="_blank" class="hover:text-blue-500 underline">Ver en Jira</a>
+    </footer>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast" class="fixed bottom-6 right-6 bg-slate-800 text-white text-sm px-4 py-3 rounded-xl shadow-xl opacity-0 pointer-events-none translate-y-2 flex items-center gap-2 z-50">
+    <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+    </svg>
+    <span id="toast-msg"></span>
+  </div>
+
+<script>
+// ── State ──────────────────────────────────────────────────────────────
+let allIdeas = [];
+let filtered = [];
+let charts = {};
+
+const STATUS_ORDER = ['Listo','Listo para entrega','Desarrollo','UI','Discovery','Temas pendientes'];
+
+const STATUS_CLASS = {
+  'Listo': 'status-listo',
+  'Listo para entrega': 'status-listo-entrega',
+  'Desarrollo': 'status-desarrollo',
+  'Discovery': 'status-discovery',
+  'UI': 'status-ui',
+  'Temas pendientes': 'status-pendientes',
+};
+
+const PLAT_CLASS = {
+  'Eleva': 'plat-eleva',
+  'Mi Portal': 'plat-portal',
+  'App Kaufmann': 'plat-app',
+  'Asistente Virtual': 'plat-asist',
+  'Copiloto': 'plat-copiloto',
+  'Klicker': 'plat-klicker',
+};
+
+const STATUS_COLORS = {
+  'Listo': '#22c55e',
+  'Listo para entrega': '#10b981',
+  'Desarrollo': '#3b82f6',
+  'UI': '#f97316',
+  'Discovery': '#8b5cf6',
+  'Temas pendientes': '#94a3b8',
+};
+
+// ── Load data ──────────────────────────────────────────────────────────
+async function loadData() {
+  try {
+    const res = await fetch('data/ideas.json?t=' + Date.now());
+    const data = await res.json();
+    allIdeas = data.ideas || [];
+
+    const dt = new Date(data.last_updated);
+    document.getElementById('last-updated').textContent =
+      dt.toLocaleDateString('es-CL', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
+
+    populateFilters();
+    applyFilters();
+    renderCharts();
+    showToast(`${allIdeas.length} ideas cargadas`);
+  } catch(e) {
+    console.error('Error loading data', e);
+  }
+}
+
+// ── Populate filter dropdowns ─────────────────────────────────────────
+function populateFilters() {
+  // Viaje 2
+  const viaje2s = [...new Set(allIdeas.map(i => i.viaje2).filter(Boolean))].sort();
+  const v2El = document.getElementById('filter-viaje2');
+  viaje2s.forEach(v => { const o = new Option(v, v); v2El.add(o); });
+
+  // Plataforma
+  const plats = [...new Set(allIdeas.flatMap(i => i.plataforma))].sort();
+  const plEl = document.getElementById('filter-plataforma');
+  plats.forEach(p => { const o = new Option(p, p); plEl.add(o); });
+
+  // Objetivo del proyecto — group by month/year
+  const meses = new Set();
+  allIdeas.forEach(i => {
+    if (i.objetivo_proyecto && i.objetivo_proyecto.start) {
+      const d = new Date(i.objetivo_proyecto.start);
+      const label = d.toLocaleDateString('es-CL', { month: 'short', year: 'numeric' });
+      const val = i.objetivo_proyecto.start.substring(0, 7);
+      meses.set ? null : null;
+      meses.add(JSON.stringify({ label, val }));
+    }
+  });
+  const sorted = [...meses].map(s => JSON.parse(s)).sort((a,b) => a.val.localeCompare(b.val));
+  const objEl = document.getElementById('filter-objetivo');
+  sorted.forEach(({label, val}) => { const o = new Option(label, val); objEl.add(o); });
+
+  // Segmento
+  const segs = [...new Set(allIdeas.flatMap(i => i.segmentos_usuario))].sort();
+  const segEl = document.getElementById('filter-segmento');
+  segs.forEach(s => { const o = new Option(s, s); segEl.add(o); });
+}
+
+// ── Apply filters ──────────────────────────────────────────────────────
+function applyFilters() {
+  const viaje2   = document.getElementById('filter-viaje2').value;
+  const plat     = document.getElementById('filter-plataforma').value;
+  const entrega  = document.getElementById('filter-entrega').value;
+  const objetivo = document.getElementById('filter-objetivo').value;
+  const segmento = document.getElementById('filter-segmento').value;
+  const rice     = document.getElementById('filter-rice').value;
+  const search   = document.getElementById('search-input').value.toLowerCase().trim();
+  const sort     = document.getElementById('sort-select').value;
+
+  let activeCount = [viaje2, plat, entrega, objetivo, segmento, rice, search].filter(Boolean).length;
+  const badge = document.getElementById('active-filters-badge');
+  if (activeCount > 0) { badge.textContent = activeCount; badge.classList.remove('hidden'); }
+  else { badge.classList.add('hidden'); }
+
+  filtered = allIdeas.filter(idea => {
+    if (viaje2   && idea.viaje2 !== viaje2) return false;
+    if (plat     && !idea.plataforma.includes(plat)) return false;
+    if (entrega === 'sin-datos' && idea.estado_entrega !== null) return false;
+    if (segmento && !idea.segmentos_usuario.includes(segmento)) return false;
+    if (rice === 'con-rice' && idea.rice_score === null) return false;
+    if (rice === 'sin-rice' && idea.rice_score !== null) return false;
+    if (objetivo && (!idea.objetivo_proyecto || !idea.objetivo_proyecto.start || !idea.objetivo_proyecto.start.startsWith(objetivo))) return false;
+    if (search && !idea.summary.toLowerCase().includes(search) && !idea.key.toLowerCase().includes(search)) return false;
+    return true;
+  });
+
+  // Sort
+  filtered.sort((a, b) => {
+    if (sort === 'key-asc')   return a.key.localeCompare(b.key, undefined, {numeric:true});
+    if (sort === 'key-desc')  return b.key.localeCompare(a.key, undefined, {numeric:true});
+    if (sort === 'status')    return (STATUS_ORDER.indexOf(a.status)) - (STATUS_ORDER.indexOf(b.status));
+    if (sort === 'rice-desc') return (b.rice_score || 0) - (a.rice_score || 0);
+    if (sort === 'summary')   return a.summary.localeCompare(b.summary, 'es');
+    return 0;
+  });
+
+  renderCards();
+  renderStats();
+}
+
+// ── Render cards ───────────────────────────────────────────────────────
+function renderCards() {
+  const grid  = document.getElementById('cards-grid');
+  const empty = document.getElementById('empty-state');
+  const count = document.getElementById('results-count');
+
+  count.textContent = `${filtered.length} idea${filtered.length !== 1 ? 's' : ''} encontrada${filtered.length !== 1 ? 's' : ''}`;
+
+  if (filtered.length === 0) {
+    grid.innerHTML = '';
+    empty.classList.remove('hidden');
+    return;
+  }
+  empty.classList.add('hidden');
+
+  grid.innerHTML = filtered.map(idea => {
+    const statusClass = STATUS_CLASS[idea.status] || 'status-pendientes';
+    const platChips = idea.plataforma.map(p =>
+      `<span class="chip ${PLAT_CLASS[p] || 'bg-slate-100 text-slate-600 border-slate-200'}">${p}</span>`
+    ).join('');
+    const segChips = idea.segmentos_usuario.map(s =>
+      `<span class="chip ${s === 'Cliente' ? 'seg-cliente' : 'seg-colaborador'}">${s}</span>`
+    ).join('');
+
+    const objetivo = idea.objetivo_proyecto
+      ? `<span class="text-slate-500 text-xs">📅 ${formatObjetivo(idea.objetivo_proyecto)}</span>`
+      : '';
+
+    const viaje2 = idea.viaje2
+      ? `<div class="text-xs text-slate-500 flex items-start gap-1 mt-1"><span class="text-slate-400 mt-0.5">↪</span><span class="line-clamp-1">${idea.viaje2}</span></div>`
+      : '';
+
+    const rice = idea.rice_score !== null
+      ? `<div class="flex items-center gap-1 mt-1.5">
+           <span class="text-xs text-slate-400 font-medium">RICE</span>
+           <span class="text-sm font-bold text-slate-700">${idea.rice_score}</span>
+         </div>`
+      : '';
+
+    return `
+    <a href="${idea.url}" target="_blank" class="block bg-white rounded-2xl border border-slate-200 p-4 card-hover shadow-sm group">
+      <div class="flex items-start justify-between gap-2 mb-3">
+        <span class="text-xs font-mono text-slate-400 group-hover:text-blue-500 transition-colors">${idea.key}</span>
+        <span class="chip ${statusClass} shrink-0">${idea.status}</span>
+      </div>
+      <h3 class="text-sm font-semibold text-slate-800 leading-snug mb-2 line-clamp-2 group-hover:text-blue-700 transition-colors">${idea.summary}</h3>
+      ${viaje2}
+      <div class="mt-3 space-y-2">
+        ${platChips ? `<div class="flex flex-wrap gap-1">${platChips}</div>` : ''}
+        ${segChips  ? `<div class="flex flex-wrap gap-1">${segChips}</div>` : ''}
+      </div>
+      <div class="flex items-center justify-between mt-3 pt-3 border-t border-slate-100">
+        ${objetivo}
+        ${rice}
+        ${!objetivo && !rice ? '<span class="text-xs text-slate-300">—</span>' : ''}
+      </div>
+    </a>`;
+  }).join('');
+}
+
+// ── Render stats ───────────────────────────────────────────────────────
+function renderStats() {
+  const counts = {};
+  STATUS_ORDER.forEach(s => counts[s] = 0);
+  filtered.forEach(i => { if (counts[i.status] !== undefined) counts[i.status]++; else counts['Temas pendientes']++; });
+
+  const statsRow = document.getElementById('stats-row');
+  const total = filtered.length;
+  const statDefs = [
+    { label: 'Total', value: total, color: 'bg-slate-800', text: 'text-white' },
+    { label: 'Listo', value: counts['Listo'], color: 'bg-green-50 border border-green-200', text: 'text-green-700' },
+    { label: 'Desarrollo', value: counts['Desarrollo'], color: 'bg-blue-50 border border-blue-200', text: 'text-blue-700' },
+    { label: 'Discovery', value: counts['Discovery'], color: 'bg-violet-50 border border-violet-200', text: 'text-violet-700' },
+    { label: 'UI', value: counts['UI'], color: 'bg-orange-50 border border-orange-200', text: 'text-orange-700' },
+    { label: 'Pendientes', value: counts['Temas pendientes'] + (counts['Listo para entrega'] || 0), color: 'bg-slate-50 border border-slate-200', text: 'text-slate-600' },
+  ];
+
+  statsRow.innerHTML = statDefs.map(s => `
+    <div class="${s.color} rounded-2xl p-4 shadow-sm">
+      <p class="text-2xl font-bold ${s.text}">${s.value}</p>
+      <p class="text-xs font-medium ${s.text} opacity-70 mt-0.5">${s.label}</p>
+    </div>
+  `).join('');
+
+  // Progress bars
+  const pbContainer = document.getElementById('progress-bars');
+  pbContainer.innerHTML = STATUS_ORDER.map(s => {
+    const count = counts[s] || 0;
+    const pct = total > 0 ? Math.round((count / total) * 100) : 0;
+    const color = STATUS_COLORS[s] || '#94a3b8';
+    return `
+      <div class="flex items-center gap-3">
+        <span class="text-xs text-slate-500 w-36 shrink-0 truncate">${s}</span>
+        <div class="flex-1 bg-slate-100 rounded-full h-2 overflow-hidden">
+          <div class="progress-bar h-2 rounded-full" style="width:${pct}%;background:${color}"></div>
+        </div>
+        <span class="text-xs font-semibold text-slate-600 w-8 text-right">${count}</span>
+      </div>`;
+  }).join('');
+}
+
+// ── Render charts ──────────────────────────────────────────────────────
+function renderCharts() {
+  // Platform chart
+  const platCounts = {};
+  allIdeas.forEach(i => i.plataforma.forEach(p => platCounts[p] = (platCounts[p] || 0) + 1));
+  const platLabels = Object.keys(platCounts).sort((a,b) => platCounts[b] - platCounts[a]);
+  const platColors = platLabels.map(p => ({
+    'Eleva': '#3b82f6', 'Mi Portal': '#8b5cf6', 'App Kaufmann': '#f97316',
+    'Asistente Virtual': '#22c55e', 'Copiloto': '#eab308', 'Klicker': '#ec4899'
+  }[p] || '#94a3b8'));
+
+  if (charts.plat) charts.plat.destroy();
+  charts.plat = new Chart(document.getElementById('chart-plataforma'), {
+    type: 'bar',
+    data: {
+      labels: platLabels,
+      datasets: [{ data: platLabels.map(p => platCounts[p]), backgroundColor: platColors, borderRadius: 6, borderSkipped: false }]
+    },
+    options: {
+      plugins: { legend: { display: false } },
+      scales: { y: { beginAtZero: true, ticks: { stepSize: 1 }, grid: { color: '#f1f5f9' } }, x: { grid: { display: false } } },
+      responsive: true
+    }
+  });
+
+  // Segmento chart
+  const segCounts = {};
+  allIdeas.forEach(i => i.segmentos_usuario.forEach(s => segCounts[s] = (segCounts[s] || 0) + 1));
+  const segLabels = Object.keys(segCounts);
+
+  if (charts.seg) charts.seg.destroy();
+  charts.seg = new Chart(document.getElementById('chart-segmento'), {
+    type: 'doughnut',
+    data: {
+      labels: segLabels,
+      datasets: [{ data: segLabels.map(s => segCounts[s]), backgroundColor: ['#3b82f6', '#ec4899', '#94a3b8'], borderWidth: 0, hoverOffset: 6 }]
+    },
+    options: {
+      plugins: { legend: { position: 'bottom', labels: { padding: 16, usePointStyle: true } } },
+      cutout: '65%',
+      responsive: true
+    }
+  });
+}
+
+// ── Helpers ────────────────────────────────────────────────────────────
+function formatObjetivo(obj) {
+  if (!obj || !obj.start) return '—';
+  const d = new Date(obj.start + 'T12:00:00');
+  if (obj.start === obj.end) {
+    return d.toLocaleDateString('es-CL', { day: '2-digit', month: 'short', year: 'numeric' });
+  }
+  return d.toLocaleDateString('es-CL', { month: 'short', year: 'numeric' });
+}
+
+function clearFilters() {
+  ['filter-viaje2','filter-plataforma','filter-entrega','filter-objetivo','filter-segmento','filter-rice'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('search-input').value = '';
+  applyFilters();
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = msg;
+  t.style.opacity = '1';
+  t.style.transform = 'translateY(0)';
+  t.style.pointerEvents = 'auto';
+  setTimeout(() => {
+    t.style.opacity = '0';
+    t.style.transform = 'translateY(8px)';
+    t.style.pointerEvents = 'none';
+  }, 2500);
+}
+
+// ── Init ───────────────────────────────────────────────────────────────
+loadData();
+</script>
+</body>
+</html>
