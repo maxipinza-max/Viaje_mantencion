@@ -41,17 +41,20 @@ def get_auth_header():
 
 def fetch_issues(headers):
     ideas = []
-    start = 0
+    next_page_token = None
     page_size = 100
 
     while True:
-        params = urlencode({
+        params = {
             "jql": f"project = {PROJECT} AND issuetype = Idea ORDER BY created DESC",
             "fields": FIELDS,
             "maxResults": page_size,
-            "startAt": start,
-        })
-        url = f"{JIRA_BASE}/rest/api/3/search?{params}"
+        }
+        if next_page_token:
+            params["nextPageToken"] = next_page_token
+
+        # Use the new /search/jql endpoint (old /search was removed by Atlassian)
+        url = f"{JIRA_BASE}/rest/api/3/search/jql?{urlencode(params)}"
         req = Request(url, headers=headers)
 
         try:
@@ -62,7 +65,6 @@ def fetch_issues(headers):
             sys.exit(1)
 
         issues = data.get("issues", [])
-        total  = data.get("total", 0)
 
         for issue in issues:
             fields = issue["fields"]
@@ -92,8 +94,8 @@ def fetch_issues(headers):
                 "url": f"{JIRA_BASE}/browse/{issue['key']}",
             })
 
-        start += len(issues)
-        if start >= total:
+        next_page_token = data.get("nextPageToken")
+        if not next_page_token or not issues:
             break
 
     return ideas
