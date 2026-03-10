@@ -174,9 +174,13 @@
     </div>
 
     <!-- RESULTS HEADER -->
-    <div class="flex items-center justify-between">
+    <div class="flex items-center justify-between flex-wrap gap-3">
       <p id="results-count" class="text-sm text-slate-500"></p>
-      <div class="flex items-center gap-2">
+      <div class="flex items-center gap-3 flex-wrap">
+        <button id="toggle-pendientes"
+          onclick="togglePendientes()"
+          class="flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-lg border transition-colors">
+        </button>
         <span class="text-xs text-slate-400">Ordenar por:</span>
         <select id="sort-select" onchange="applyFilters()"
           class="filter-select text-xs border border-slate-200 rounded-lg px-2 py-1.5 bg-white text-slate-600 focus:outline-none">
@@ -213,7 +217,7 @@
         <canvas id="chart-plataforma" height="200"></canvas>
       </div>
       <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
-        <h3 class="text-sm font-semibold text-slate-700 mb-4">Ideas por Segmento de Usuario</h3>
+        <h3 class="text-sm font-semibold text-slate-700 mb-4">Ideas por Estado</h3>
         <canvas id="chart-segmento" height="200"></canvas>
       </div>
     </div>
@@ -238,6 +242,7 @@ let allIdeas = [];
 let filtered = [];
 let charts = {};
 let activeStatusFilter = null;
+let hidePendientes = true;   // hide "Temas pendientes" by default
 
 const STATUS_ORDER = ['Listo','Listo para entrega','Desarrollo','UI','Discovery','Temas pendientes'];
 
@@ -338,6 +343,7 @@ function applyFilters() {
   else { badge.classList.add('hidden'); }
 
   filtered = allIdeas.filter(idea => {
+    if (hidePendientes && idea.status === 'Temas pendientes') return false;
     if (activeStatusFilter && idea.status !== activeStatusFilter) return false;
     if (viaje2   && idea.viaje2 !== viaje2) return false;
     if (plat     && !idea.plataforma.includes(plat)) return false;
@@ -362,6 +368,8 @@ function applyFilters() {
 
   renderCards();
   renderStats();
+  renderCharts();
+  updateToggleBtn();
 }
 
 // ── Render cards ───────────────────────────────────────────────────────
@@ -478,11 +486,16 @@ function renderStats() {
     </button>`;
   }).join('');
 
-  // Progress bars
+  // Progress bars (based on filtered)
+  const filteredCounts = {};
+  STATUS_ORDER.forEach(s => filteredCounts[s] = 0);
+  filtered.forEach(i => { if (filteredCounts[i.status] !== undefined) filteredCounts[i.status]++; });
+  const filteredTotal = filtered.length;
+
   const pbContainer = document.getElementById('progress-bars');
   pbContainer.innerHTML = STATUS_ORDER.map(s => {
-    const count = counts[s] || 0;
-    const pct = total > 0 ? Math.round((count / total) * 100) : 0;
+    const count = filteredCounts[s] || 0;
+    const pct = filteredTotal > 0 ? Math.round((count / filteredTotal) * 100) : 0;
     const color = STATUS_COLORS[s] || '#94a3b8';
     return `
       <div class="flex items-center gap-3">
@@ -495,16 +508,17 @@ function renderStats() {
   }).join('');
 }
 
-// ── Render charts ──────────────────────────────────────────────────────
+// ── Render charts (based on filtered ideas) ────────────────────────────
 function renderCharts() {
   // Platform chart
   const platCounts = {};
-  allIdeas.forEach(i => i.plataforma.forEach(p => platCounts[p] = (platCounts[p] || 0) + 1));
+  filtered.forEach(i => i.plataforma.forEach(p => platCounts[p] = (platCounts[p] || 0) + 1));
   const platLabels = Object.keys(platCounts).sort((a,b) => platCounts[b] - platCounts[a]);
-  const platColors = platLabels.map(p => ({
+  const PLAT_COLORS_MAP = {
     'Eleva': '#3b82f6', 'Mi Portal': '#8b5cf6', 'App Kaufmann': '#f97316',
     'Asistente Virtual': '#22c55e', 'Copiloto': '#eab308', 'Klicker': '#ec4899'
-  }[p] || '#94a3b8'));
+  };
+  const platColors = platLabels.map(p => PLAT_COLORS_MAP[p] || '#94a3b8');
 
   if (charts.plat) charts.plat.destroy();
   charts.plat = new Chart(document.getElementById('chart-plataforma'), {
@@ -515,27 +529,32 @@ function renderCharts() {
     },
     options: {
       plugins: { legend: { display: false } },
-      scales: { y: { beginAtZero: true, ticks: { stepSize: 1 }, grid: { color: '#f1f5f9' } }, x: { grid: { display: false } } },
-      responsive: true
+      scales: { y: { beginAtZero: true, ticks: { stepSize: 1, precision: 0 }, grid: { color: '#f1f5f9' } }, x: { grid: { display: false } } },
+      responsive: true, maintainAspectRatio: true
     }
   });
 
-  // Segmento chart
-  const segCounts = {};
-  allIdeas.forEach(i => i.segmentos_usuario.forEach(s => segCounts[s] = (segCounts[s] || 0) + 1));
-  const segLabels = Object.keys(segCounts);
+  // Status donut chart
+  const statusCounts = {};
+  STATUS_ORDER.forEach(s => statusCounts[s] = 0);
+  filtered.forEach(i => { if (statusCounts[i.status] !== undefined) statusCounts[i.status]++; });
+  const statusLabels = STATUS_ORDER.filter(s => statusCounts[s] > 0);
 
-  if (charts.seg) charts.seg.destroy();
-  charts.seg = new Chart(document.getElementById('chart-segmento'), {
+  if (charts.status) charts.status.destroy();
+  charts.status = new Chart(document.getElementById('chart-segmento'), {
     type: 'doughnut',
     data: {
-      labels: segLabels,
-      datasets: [{ data: segLabels.map(s => segCounts[s]), backgroundColor: ['#3b82f6', '#ec4899', '#94a3b8'], borderWidth: 0, hoverOffset: 6 }]
+      labels: statusLabels,
+      datasets: [{
+        data: statusLabels.map(s => statusCounts[s]),
+        backgroundColor: statusLabels.map(s => STATUS_COLORS[s] || '#94a3b8'),
+        borderWidth: 0, hoverOffset: 6
+      }]
     },
     options: {
-      plugins: { legend: { position: 'bottom', labels: { padding: 16, usePointStyle: true } } },
-      cutout: '65%',
-      responsive: true
+      plugins: { legend: { position: 'bottom', labels: { padding: 12, usePointStyle: true, font: { size: 11 } } } },
+      cutout: '60%',
+      responsive: true, maintainAspectRatio: true
     }
   });
 }
@@ -548,6 +567,24 @@ function formatObjetivo(obj) {
     return d.toLocaleDateString('es-CL', { day: '2-digit', month: 'short', year: 'numeric' });
   }
   return d.toLocaleDateString('es-CL', { month: 'short', year: 'numeric' });
+}
+
+function togglePendientes() {
+  hidePendientes = !hidePendientes;
+  // If showing pendientes, make sure activeStatusFilter isn't locked to something incompatible
+  applyFilters();
+}
+
+function updateToggleBtn() {
+  const btn = document.getElementById('toggle-pendientes');
+  if (!btn) return;
+  if (hidePendientes) {
+    btn.className = 'flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-lg border transition-colors bg-slate-100 border-slate-300 text-slate-600 hover:bg-slate-200';
+    btn.innerHTML = '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/></svg>Mostrar Temas pendientes';
+  } else {
+    btn.className = 'flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-lg border transition-colors bg-amber-50 border-amber-300 text-amber-700 hover:bg-amber-100';
+    btn.innerHTML = '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>Ocultar Temas pendientes';
+  }
 }
 
 function clearFilters() {
