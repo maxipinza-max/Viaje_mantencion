@@ -1,19 +1,14 @@
 {
-  "last_updated": "2026-03-10T20:01:41Z",
-  "total": 57,
+  "last_updated": "2026-03-11T11:58:36Z",
+  "total": 58,
   "ideas": [
     {
-      "key": "VC-61",
-      "summary": "Prueba",
-      "status": "Temas pendientes",
-      "viaje2": "1. Onboarding Simple",
+      "key": "VC-63",
+      "summary": "Eleva: Selling Speech 2.0",
+      "status": "Discovery",
+      "viaje2": "7. Llegada e ingreso sin fricción",
       "plataforma": [
-        "Eleva",
-        "Mi Portal",
-        "App Kaufmann",
-        "Copiloto",
-        "Klicker",
-        "Asistente Virtual"
+        "Eleva"
       ],
       "estado_entrega": null,
       "objetivo_proyecto": {
@@ -21,12 +16,31 @@
         "end": "2026-04-30"
       },
       "segmentos_usuario": [
-        "Colaborador",
+        "Colaborador"
+      ],
+      "rice_score": null,
+      "descripcion_breve": "Asesor de servicio recibe el selling speech en su telefono via whatsapp con informacion acerca del cliente que acaba de llegar",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-63"
+    },
+    {
+      "key": "VC-62",
+      "summary": "App Kaufmann: Notificaciones Push agendamiento",
+      "status": "Discovery",
+      "viaje2": "5. Agendamiento Self Service",
+      "plataforma": [
+        "App Kaufmann"
+      ],
+      "estado_entrega": null,
+      "objetivo_proyecto": {
+        "start": "2026-05-01",
+        "end": "2026-05-31"
+      },
+      "segmentos_usuario": [
         "Cliente"
       ],
       "rice_score": null,
-      "descripcion_breve": "adsfsfs",
-      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-61"
+      "descripcion_breve": "El cliente recibe en tiempo real los estados de su vehiculo una vez que entra a taller",
+      "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-62"
     },
     {
       "key": "VC-60",
@@ -58,7 +72,7 @@
       "key": "VC-58",
       "summary": "Conectar abono de Oferta con Memopad",
       "status": "Discovery",
-      "viaje2": "11. Retiro ágil en sucursal",
+      "viaje2": "8. Seguimiento en tiempo real",
       "plataforma": [
         "Eleva"
       ],
@@ -303,8 +317,8 @@
     },
     {
       "key": "VC-43",
-      "summary": "APP Kaufmann: Confirmacion de agendamiento",
-      "status": "Temas pendientes",
+      "summary": "APP Kaufmann: Push Confirmacion de agendamiento",
+      "status": "Discovery",
       "viaje2": "6. Confirmación y acompañamiento previo",
       "plataforma": [
         "App Kaufmann"
@@ -344,7 +358,7 @@
     },
     {
       "key": "VC-41",
-      "summary": "APP Kaufmann: Agendamiento",
+      "summary": "APP Kaufmann: Modulo Agendamiento",
       "status": "Listo",
       "viaje2": "5. Agendamiento Self Service",
       "plataforma": [
@@ -361,7 +375,7 @@
     },
     {
       "key": "VC-39",
-      "summary": "APP Kaufmann: Notificacion mantencion",
+      "summary": "APP Kaufmann: Push Notificación mantención",
       "status": "Temas pendientes",
       "viaje2": "4. Anticipación Proactiva del servicio",
       "plataforma": [
@@ -373,7 +387,7 @@
         "Cliente"
       ],
       "rice_score": null,
-      "descripcion_breve": "Cliente recibe de manera anticipada el aviso que su vehiculo debe venir a mantencion",
+      "descripcion_breve": "Cliente recibe de manera anticipada el aviso que su vehiculo debe venir a mantencion por el GPS instalado en el auto y/o Pauta de mantenimiento y/o kiloemtraje calculado segun su ultima visita a taller.",
       "url": "https://elevaap.atlassian.net/jira/polaris/projects/VC/ideas/idea/VC-39"
     },
     {
