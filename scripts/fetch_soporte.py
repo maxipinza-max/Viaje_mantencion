@@ -104,7 +104,7 @@ def fetch_stories(headers):
             "startAt": start_at,
         }
 
-        data = jira_get(headers, "/rest/api/3/search", params)
+        data = jira_get(headers, "/rest/api/3/search/jql", params)
         issues = data.get("issues", [])
 
         for issue in issues:
@@ -161,7 +161,7 @@ def enrich_epic_names(headers, stories):
         return
 
     jql = "issueKey in (" + ",".join(keys_to_resolve) + ")"
-    data = jira_get(headers, "/rest/api/3/search", {
+    data = jira_get(headers, "/rest/api/3/search/jql", {
         "jql": jql, "fields": "summary", "maxResults": len(keys_to_resolve)
     })
     name_map = {i["key"]: i["fields"].get("summary", i["key"]) for i in data.get("issues", [])}
