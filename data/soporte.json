@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-03-11T11:58:37Z",
+  "last_updated": "2026-03-11T15:03:25Z",
   "total": 43,
   "stories": [
     {
@@ -68,7 +68,7 @@
     {
       "key": "CO-1349",
       "summary": "Descargable: Exportar datos del Ranking General por tab",
-      "status": "Control de calidad",
+      "status": "Validacion",
       "lane": "EN CURSO",
       "epic_key": "CO-1269",
       "epic_name": "Copiloto: Nota de conductor",
@@ -77,7 +77,7 @@
     {
       "key": "CO-1348",
       "summary": "Descargable: Exportar datos de la sección Resumen del Periodo",
-      "status": "Control de calidad",
+      "status": "Validacion",
       "lane": "EN CURSO",
       "epic_key": "CO-1269",
       "epic_name": "Copiloto: Nota de conductor",
@@ -86,7 +86,7 @@
     {
       "key": "CO-1347",
       "summary": "Rediseño UI: Ranking General - Tab Dificultad",
-      "status": "Control de calidad",
+      "status": "Validacion",
       "lane": "EN CURSO",
       "epic_key": "CO-1269",
       "epic_name": "Copiloto: Nota de conductor",
@@ -95,7 +95,7 @@
     {
       "key": "CO-1346",
       "summary": "Rediseño UI: Ranking General - Tab Seguridad",
-      "status": "Control de calidad",
+      "status": "Validacion",
       "lane": "EN CURSO",
       "epic_key": "CO-1269",
       "epic_name": "Copiloto: Nota de conductor",
@@ -104,7 +104,7 @@
     {
       "key": "CO-1345",
       "summary": "Rediseño UI: Ranking General - Tab Frenos",
-      "status": "Control de calidad",
+      "status": "Validacion",
       "lane": "EN CURSO",
       "epic_key": "CO-1269",
       "epic_name": "Copiloto: Nota de conductor",
@@ -113,7 +113,7 @@
     {
       "key": "CO-1344",
       "summary": "Rediseño UI: Ranking General - Tab Consumo",
-      "status": "Control de calidad",
+      "status": "Validacion",
       "lane": "EN CURSO",
       "epic_key": "CO-1269",
       "epic_name": "Copiloto: Nota de conductor",
@@ -122,7 +122,7 @@
     {
       "key": "CO-1343",
       "summary": "Rediseño UI: Ranking General - Tab General",
-      "status": "Control de calidad",
+      "status": "Validacion",
       "lane": "EN CURSO",
       "epic_key": "CO-1269",
       "epic_name": "Copiloto: Nota de conductor",
@@ -131,7 +131,7 @@
     {
       "key": "CO-1342",
       "summary": "Rediseño UI: Sección Resumen del Periodo",
-      "status": "Control de calidad",
+      "status": "Validacion",
       "lane": "EN CURSO",
       "epic_key": "CO-1269",
       "epic_name": "Copiloto: Nota de conductor",
@@ -140,7 +140,7 @@
     {
       "key": "CO-1341",
       "summary": "Rediseño UI: Panel de búsqueda y filtros de Nota Detallada",
-      "status": "Control de calidad",
+      "status": "Validacion",
       "lane": "EN CURSO",
       "epic_key": "CO-1269",
       "epic_name": "Copiloto: Nota de conductor",
