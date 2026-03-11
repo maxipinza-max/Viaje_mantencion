@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soporte — Dashboard de Historias</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    * { font-family: 'Inter', sans-serif; }
+
+    .lane-header-por-hacer  { background: #f1f5f9; border-color: #94a3b8; color: #475569; }
+    .lane-header-en-curso   { background: #dbeafe; border-color: #60a5fa; color: #1d4ed8; }
+    .lane-header-bloqueado  { background: #fee2e2; border-color: #f87171; color: #b91c1c; }
+    .lane-header-hecho      { background: #dcfce7; border-color: #4ade80; color: #15803d; }
+
+    .lane-por-hacer  { background: #f8fafc; border-top: 3px solid #94a3b8; }
+    .lane-en-curso   { background: #eff6ff; border-top: 3px solid #3b82f6; }
+    .lane-bloqueado  { background: #fff5f5; border-top: 3px solid #ef4444; }
+    .lane-hecho      { background: #f0fdf4; border-top: 3px solid #22c55e; }
+
+    .card-hover { transition: transform 0.15s ease, box-shadow 0.15s ease; }
+    .card-hover:hover { transform: translateY(-2px); box-shadow: 0 8px 20px -4px rgb(0 0 0 / 0.12); }
+
+    .status-por-hacer  { background: #f1f5f9; color: #475569; border-color: #cbd5e1; }
+    .status-en-curso   { background: #dbeafe; color: #1e40af; border-color: #93c5fd; }
+    .status-bloqueado  { background: #fee2e2; color: #b91c1c; border-color: #fca5a5; }
+    .status-hecho      { background: #dcfce7; color: #166534; border-color: #86efac; }
+
+    .chip { display:inline-flex;align-items:center;padding:2px 8px;border-radius:9999px;font-size:11px;font-weight:500;border-width:1px; }
+
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+
+    .lane-col { min-width: 280px; max-height: calc(100vh - 220px); overflow-y: auto; }
+
+    #toast { transition: opacity 0.3s ease, transform 0.3s ease; }
+
+    .filter-select { appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 10px center; }
+  </style>
+</head>
+<body class="bg-slate-100 min-h-screen">
+
+  <!-- HEADER -->
+  <header class="bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-900 text-white shadow-xl sticky top-0 z-50">
+    <div class="max-w-screen-2xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <div class="w-10 h-10 bg-indigo-500 rounded-xl flex items-center justify-center shadow-lg">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-xl font-bold leading-tight">Soporte — Board de Historias</h1>
+          <p class="text-indigo-300 text-xs">Proyecto CO · Label: Soporte · Kaufmann LAB</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-5">
+        <div class="text-right hidden sm:block">
+          <p class="text-xs text-slate-400">Última actualización</p>
+          <p id="last-updated" class="text-sm font-semibold text-indigo-200">—</p>
+        </div>
+        <div id="live-badge" class="flex items-center gap-2 bg-green-500/20 border border-green-500/40 rounded-full px-3 py-1.5">
+          <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+          <span class="text-green-300 text-xs font-medium">Live</span>
+        </div>
+        <a href="https://elevaap.atlassian.net/jira/software/c/projects/CO/boards/175?label=Soporte"
+           target="_blank"
+           class="hidden sm:flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-medium px-3 py-1.5 rounded-lg transition-colors">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"/>
+            <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"/>
+          </svg>
+          Ver en Jira
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div class="max-w-screen-2xl mx-auto px-6 py-5 space-y-5">
+
+    <!-- SUMMARY STATS -->
+    <div id="stats-row" class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <!-- filled by JS -->
+    </div>
+
+    <!-- FILTERS + SEARCH -->
+    <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm flex flex-wrap items-end gap-3">
+      <!-- Epic filter -->
+      <div class="space-y-1 min-w-[180px]">
+        <label class="text-xs font-medium text-slate-500 uppercase tracking-wide">Epic</label>
+        <select id="filter-epic" onchange="applyFilters()"
+          class="filter-select w-full text-sm border border-slate-200 rounded-lg px-3 py-2 bg-white text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          <option value="">Todos los epics</option>
+        </select>
+      </div>
+
+      <!-- Search -->
+      <div class="flex-1 min-w-[200px] space-y-1">
+        <label class="text-xs font-medium text-slate-500 uppercase tracking-wide">Buscar</label>
+        <div class="relative">
+          <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+          <input id="search-input" type="text" placeholder="Buscar por nombre o clave..." oninput="applyFilters()"
+            class="w-full pl-10 pr-4 py-2 text-sm border border-slate-200 rounded-lg bg-white text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+        </div>
+      </div>
+
+      <!-- Clear -->
+      <button onclick="clearFilters()"
+        class="text-xs text-slate-400 hover:text-slate-700 underline transition-colors self-end pb-2">
+        Limpiar filtros
+      </button>
+
+      <div class="self-end pb-2">
+        <span id="results-count" class="text-xs text-slate-400"></span>
+      </div>
+    </div>
+
+    <!-- KANBAN BOARD -->
+    <div id="kanban-board" class="flex gap-4 overflow-x-auto pb-4">
+      <!-- filled by JS -->
+    </div>
+
+    <footer class="text-center text-xs text-slate-400 py-4">
+      Datos sincronizados desde Jira Software · Proyecto CO · Label: Soporte · Kaufmann LAB
+      · <a href="https://elevaap.atlassian.net/jira/software/c/projects/CO/boards/175?label=Soporte"
+            target="_blank" class="hover:text-indigo-500 underline">Ver board en Jira</a>
+    </footer>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast" class="fixed bottom-6 right-6 bg-slate-800 text-white text-sm px-4 py-3 rounded-xl shadow-xl opacity-0 pointer-events-none translate-y-2 flex items-center gap-2 z-50">
+    <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+    </svg>
+    <span id="toast-msg"></span>
+  </div>
+
+<script>
+// ── Constants ───────────────────────────────────────────────────────────
+const LANE_ORDER = ["POR HACER", "EN CURSO", "BLOQUEADO", "HECHO"];
+
+const LANE_META = {
+  "POR HACER": {
+    laneClass:   "lane-por-hacer",
+    headerClass: "lane-header-por-hacer",
+    statusClass: "status-por-hacer",
+    icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+             <circle cx="12" cy="12" r="10" stroke-width="2"/>
+             <path stroke-linecap="round" stroke-width="2" d="M8 12h8"/>
+           </svg>`,
+  },
+  "EN CURSO": {
+    laneClass:   "lane-en-curso",
+    headerClass: "lane-header-en-curso",
+    statusClass: "status-en-curso",
+    icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+               d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+           </svg>`,
+  },
+  "BLOQUEADO": {
+    laneClass:   "lane-bloqueado",
+    headerClass: "lane-header-bloqueado",
+    statusClass: "status-bloqueado",
+    icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+               d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+           </svg>`,
+  },
+  "HECHO": {
+    laneClass:   "lane-hecho",
+    headerClass: "lane-header-hecho",
+    statusClass: "status-hecho",
+    icon: `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+               d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+           </svg>`,
+  },
+};
+
+// ── State ───────────────────────────────────────────────────────────────
+let allStories = [];
+let filtered   = [];
+
+// ── Load data ───────────────────────────────────────────────────────────
+async function loadData() {
+  try {
+    const res  = await fetch('data/soporte.json?t=' + Date.now());
+    const data = await res.json();
+    allStories = data.stories || [];
+
+    const dt = new Date(data.last_updated);
+    document.getElementById('last-updated').textContent =
+      dt.toLocaleDateString('es-CL', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
+
+    populateEpicFilter();
+    applyFilters();
+    showToast(`${allStories.length} historias cargadas`);
+  } catch(e) {
+    console.error('Error loading data', e);
+    document.getElementById('last-updated').textContent = 'Error al cargar datos';
+  }
+}
+
+// ── Populate epic filter ────────────────────────────────────────────────
+function populateEpicFilter() {
+  const epics = [...new Map(
+    allStories
+      .filter(s => s.epic_key)
+      .map(s => [s.epic_key, s.epic_name || s.epic_key])
+  ).entries()].sort((a, b) => (a[1] || '').localeCompare(b[1] || '', 'es'));
+
+  const el = document.getElementById('filter-epic');
+  epics.forEach(([key, name]) => {
+    el.add(new Option(name, key));
+  });
+}
+
+// ── Apply filters ───────────────────────────────────────────────────────
+function applyFilters() {
+  const epicFilter   = document.getElementById('filter-epic').value;
+  const searchFilter = document.getElementById('search-input').value.toLowerCase().trim();
+
+  filtered = allStories.filter(s => {
+    if (epicFilter && s.epic_key !== epicFilter) return false;
+    if (searchFilter &&
+        !s.summary.toLowerCase().includes(searchFilter) &&
+        !s.key.toLowerCase().includes(searchFilter)) return false;
+    return true;
+  });
+
+  renderStats();
+  renderBoard();
+
+  const count = document.getElementById('results-count');
+  count.textContent = `${filtered.length} historia${filtered.length !== 1 ? 's' : ''} encontrada${filtered.length !== 1 ? 's' : ''}`;
+}
+
+// ── Render summary stats ────────────────────────────────────────────────
+function renderStats() {
+  const counts = {};
+  LANE_ORDER.forEach(l => counts[l] = 0);
+  allStories.forEach(s => { if (counts[s.lane] !== undefined) counts[s.lane]++; });
+
+  const defs = [
+    { lane: "POR HACER", bg: "bg-slate-50 border border-slate-200",   text: "text-slate-700" },
+    { lane: "EN CURSO",  bg: "bg-blue-50 border border-blue-200",     text: "text-blue-700"  },
+    { lane: "BLOQUEADO", bg: "bg-red-50 border border-red-200",       text: "text-red-700"   },
+    { lane: "HECHO",     bg: "bg-green-50 border border-green-200",   text: "text-green-700" },
+  ];
+
+  document.getElementById('stats-row').innerHTML = defs.map(d => `
+    <div class="${d.bg} rounded-2xl p-4 shadow-sm">
+      <p class="text-3xl font-bold ${d.text}">${counts[d.lane]}</p>
+      <div class="flex items-center gap-1.5 mt-1">
+        <span class="${d.text} opacity-60">${LANE_META[d.lane].icon}</span>
+        <p class="text-xs font-semibold ${d.text} opacity-70">${d.lane}</p>
+      </div>
+    </div>`).join('');
+}
+
+// ── Render Kanban board ─────────────────────────────────────────────────
+function renderBoard() {
+  const byLane = {};
+  LANE_ORDER.forEach(l => byLane[l] = []);
+  filtered.forEach(s => {
+    if (byLane[s.lane] !== undefined) byLane[s.lane].push(s);
+  });
+
+  const board = document.getElementById('kanban-board');
+  board.innerHTML = LANE_ORDER.map(lane => {
+    const meta   = LANE_META[lane];
+    const cards  = byLane[lane];
+    const count  = cards.length;
+
+    const cardHTML = cards.length === 0
+      ? `<div class="text-center py-8 text-slate-400 text-sm">Sin historias</div>`
+      : cards.map(s => renderCard(s, meta)).join('');
+
+    return `
+    <div class="lane-col flex-1 ${meta.laneClass} rounded-2xl shadow-sm overflow-hidden border border-slate-200">
+      <!-- Lane header -->
+      <div class="${meta.headerClass} px-4 py-3 flex items-center justify-between border-b border-slate-200/60 sticky top-0">
+        <div class="flex items-center gap-2">
+          ${meta.icon}
+          <span class="text-sm font-bold tracking-wide">${lane}</span>
+        </div>
+        <span class="text-xs font-bold bg-white/60 px-2 py-0.5 rounded-full">${count}</span>
+      </div>
+      <!-- Cards -->
+      <div class="p-3 space-y-2.5">
+        ${cardHTML}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── Render a single card ────────────────────────────────────────────────
+function renderCard(s, meta) {
+  const epicBadge = s.epic_name
+    ? `<div class="flex items-center gap-1 mt-2">
+         <svg class="w-3 h-3 text-indigo-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+             d="M13 10V3L4 14h7v7l9-11h-7z"/>
+         </svg>
+         <span class="text-xs text-indigo-600 font-medium line-clamp-1">${escHtml(s.epic_name)}</span>
+       </div>`
+    : '';
+
+  const statusBadge = s.status && s.status !== s.lane
+    ? `<span class="chip ${meta.statusClass} shrink-0 text-[10px]">${escHtml(s.status)}</span>`
+    : '';
+
+  return `
+  <a href="${s.url}" target="_blank"
+     class="block bg-white rounded-xl border border-slate-200 p-3 card-hover shadow-sm group">
+    <div class="flex items-start justify-between gap-2 mb-1.5">
+      <span class="text-[10px] font-mono text-slate-400 group-hover:text-indigo-500 transition-colors">${s.key}</span>
+      ${statusBadge}
+    </div>
+    <h3 class="text-xs font-semibold text-slate-800 leading-snug line-clamp-3 group-hover:text-indigo-700 transition-colors">
+      ${escHtml(s.summary)}
+    </h3>
+    ${epicBadge}
+  </a>`;
+}
+
+// ── Helpers ─────────────────────────────────────────────────────────────
+function escHtml(str) {
+  return (str || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function clearFilters() {
+  document.getElementById('filter-epic').value = '';
+  document.getElementById('search-input').value = '';
+  applyFilters();
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = msg;
+  t.style.opacity = '1';
+  t.style.transform = 'translateY(0)';
+  t.style.pointerEvents = 'auto';
+  setTimeout(() => {
+    t.style.opacity = '0';
+    t.style.transform = 'translateY(8px)';
+    t.style.pointerEvents = 'none';
+  }, 2500);
+}
+
+// ── Init ────────────────────────────────────────────────────────────────
+loadData();
+</script>
+</body>
+</html>

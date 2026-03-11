@@ -22,16 +22,22 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Fetch data from Jira Polaris
+      - name: Fetch data from Jira Polaris (VC)
         env:
           JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
         run: python scripts/fetch_data.py
 
+      - name: Fetch data from Jira Software – Soporte (CO)
+        env:
+          JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+        run: python scripts/fetch_soporte.py
+
       - name: Commit updated data
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/ideas.json
+          git add data/ideas.json data/soporte.json
           git diff --cached --quiet || git commit -m "chore: update Jira data $(date -u '+%Y-%m-%d %H:%M UTC')"
           git push
