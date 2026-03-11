@@ -1,0 +1,393 @@
+{
+  "last_updated": "2026-03-11T10:30:44Z",
+  "total": 43,
+  "stories": [
+    {
+      "key": "CO-1489",
+      "summary": "[B] Optimizar consulta de listado general de tickets en Backoffice Wicar",
+      "status": "Finalizada",
+      "lane": "HECHO",
+      "epic_key": "CO-862",
+      "epic_name": "Wicar: Mejoras administrativas",
+      "url": "https://elevaap.atlassian.net/browse/CO-1489"
+    },
+    {
+      "key": "CO-1376",
+      "summary": "Integrar CDN en toda la plataforma para darle integridad a la consulta de Lucia",
+      "status": "Tareas por hacer",
+      "lane": "POR HACER",
+      "epic_key": null,
+      "epic_name": null,
+      "url": "https://elevaap.atlassian.net/browse/CO-1376"
+    },
+    {
+      "key": "CO-1358",
+      "summary": "[B] Implementar lógica de envío de posiciones por rango de tiempo - Integración Transportes Sae",
+      "status": "Finalizada",
+      "lane": "HECHO",
+      "epic_key": "CO-469",
+      "epic_name": "Integración a tercero",
+      "url": "https://elevaap.atlassian.net/browse/CO-1358"
+    },
+    {
+      "key": "CO-1357",
+      "summary": "Vista de rastreo 2.0 como satelite por defecto",
+      "status": "Finalizada",
+      "lane": "HECHO",
+      "epic_key": null,
+      "epic_name": null,
+      "url": "https://elevaap.atlassian.net/browse/CO-1357"
+    },
+    {
+      "key": "CO-1356",
+      "summary": "Integrar Lucia.20 en Home Copiloto",
+      "status": "Tareas por hacer",
+      "lane": "POR HACER",
+      "epic_key": "CO-1004",
+      "epic_name": "IA Factory",
+      "url": "https://elevaap.atlassian.net/browse/CO-1356"
+    },
+    {
+      "key": "CO-1355",
+      "summary": "Integracion Lucia 2.0 en telemetría diesel",
+      "status": "Finalizada",
+      "lane": "HECHO",
+      "epic_key": "CO-1004",
+      "epic_name": "IA Factory",
+      "url": "https://elevaap.atlassian.net/browse/CO-1355"
+    },
+    {
+      "key": "CO-1352",
+      "summary": "Orden menu Copiloto",
+      "status": "Tareas por hacer",
+      "lane": "POR HACER",
+      "epic_key": null,
+      "epic_name": null,
+      "url": "https://elevaap.atlassian.net/browse/CO-1352"
+    },
+    {
+      "key": "CO-1349",
+      "summary": "Descargable: Exportar datos del Ranking General por tab",
+      "status": "Control de calidad",
+      "lane": "EN CURSO",
+      "epic_key": "CO-1269",
+      "epic_name": "Copiloto: Nota de conductor",
+      "url": "https://elevaap.atlassian.net/browse/CO-1349"
+    },
+    {
+      "key": "CO-1348",
+      "summary": "Descargable: Exportar datos de la sección Resumen del Periodo",
+      "status": "Control de calidad",
+      "lane": "EN CURSO",
+      "epic_key": "CO-1269",
+      "epic_name": "Copiloto: Nota de conductor",
+      "url": "https://elevaap.atlassian.net/browse/CO-1348"
+    },
+    {
+      "key": "CO-1347",
+      "summary": "Rediseño UI: Ranking General - Tab Dificultad",
+      "status": "Control de calidad",
+      "lane": "EN CURSO",
+      "epic_key": "CO-1269",
+      "epic_name": "Copiloto: Nota de conductor",
+      "url": "https://elevaap.atlassian.net/browse/CO-1347"
+    },
+    {
+      "key": "CO-1346",
+      "summary": "Rediseño UI: Ranking General - Tab Seguridad",
+      "status": "Control de calidad",
+      "lane": "EN CURSO",
+      "epic_key": "CO-1269",
+      "epic_name": "Copiloto: Nota de conductor",
+      "url": "https://elevaap.atlassian.net/browse/CO-1346"
+    },
+    {
+      "key": "CO-1345",
+      "summary": "Rediseño UI: Ranking General - Tab Frenos",
+      "status": "Control de calidad",
+      "lane": "EN CURSO",
+      "epic_key": "CO-1269",
+      "epic_name": "Copiloto: Nota de conductor",
+      "url": "https://elevaap.atlassian.net/browse/CO-1345"
+    },
+    {
+      "key": "CO-1344",
+      "summary": "Rediseño UI: Ranking General - Tab Consumo",
+      "status": "Control de calidad",
+      "lane": "EN CURSO",
+      "epic_key": "CO-1269",
+      "epic_name": "Copiloto: Nota de conductor",
+      "url": "https://elevaap.atlassian.net/browse/CO-1344"
+    },
+    {
+      "key": "CO-1343",
+      "summary": "Rediseño UI: Ranking General - Tab General",
+      "status": "Control de calidad",
+      "lane": "EN CURSO",
+      "epic_key": "CO-1269",
+      "epic_name": "Copiloto: Nota de conductor",
+      "url": "https://elevaap.atlassian.net/browse/CO-1343"
+    },
+    {
+      "key": "CO-1342",
+      "summary": "Rediseño UI: Sección Resumen del Periodo",
+      "status": "Control de calidad",
+      "lane": "EN CURSO",
+      "epic_key": "CO-1269",
+      "epic_name": "Copiloto: Nota de conductor",
+      "url": "https://elevaap.atlassian.net/browse/CO-1342"
+    },
+    {
+      "key": "CO-1341",
+      "summary": "Rediseño UI: Panel de búsqueda y filtros de Nota Detallada",
+      "status": "Control de calidad",
+      "lane": "EN CURSO",
+      "epic_key": "CO-1269",
+      "epic_name": "Copiloto: Nota de conductor",
+      "url": "https://elevaap.atlassian.net/browse/CO-1341"
+    },
+    {
+      "key": "CO-1339",
+      "summary": "Cambiar logotipo Korai a Connect",
+      "status": "Tareas por hacer",
+      "lane": "POR HACER",
+      "epic_key": "CO-1004",
+      "epic_name": "IA Factory",
+      "url": "https://elevaap.atlassian.net/browse/CO-1339"
+    },
+    {
+      "key": "CO-1332",
+      "summary": "Vehiculos sin reportar",
+      "status": "Bloqueo Bloqueo",
+      "lane": "EN CURSO",
+      "epic_key": null,
+      "epic_name": null,
+      "url": "https://elevaap.atlassian.net/browse/CO-1332"
+    },
+    {
+      "key": "CO-1331",
+      "summary": "Calculo de rendimiento telemetría diesel",
+      "status": "Finalizada",
+      "lane": "HECHO",
+      "epic_key": null,
+      "epic_name": null,
+      "url": "https://elevaap.atlassian.net/browse/CO-1331"
+    },
+    {
+      "key": "CO-1322",
+      "summary": "Deploy Wicar core API en producción",
+      "status": "Finalizada",
+      "lane": "HECHO",
+      "epic_key": null,
+      "epic_name": null,
+      "url": "https://elevaap.atlassian.net/browse/CO-1322"
+    },
+    {
+      "key": "CO-1316",
+      "summary": "Documentar endpoints de Backoffice en Wicar Core API",
+      "status": "Finalizada",
+      "lane": "HECHO",
+      "epic_key": null,
+      "epic_name": null,
+      "url": "https://elevaap.atlassian.net/browse/CO-1316"
+    },
+    {
+      "key": "CO-1314",
+      "summary": "Refinamiento chatbot en base a feedback",
+      "status": "Finalizada",
+      "lane": "HECHO",
+      "epic_key": "CO-1004",
+      "epic_name": "IA Factory",
+      "url": "https://elevaap.atlassian.net/browse/CO-1314"
+    },
+    {
+      "key": "CO-1313",
+      "summary": "Implementación historial conversación",
+      "status": "Finalizada",
+      "lane": "HECHO",
+      "epic_key": "CO-1004",
+      "epic_name": "IA Factory",
+      "url": "https://elevaap.atlassian.net/browse/CO-1313"
+    },
+    {
+      "key": "CO-1311",
+      "summary": "Backoffice Wicar Refactor Endpoints P2",
+      "status": "Finalizada",
+      "lane": "HECHO",
+      "epic_key": "CO-862",
+      "epic_name": "Wicar: Mejoras administrativas",
+      "url": "https://elevaap.atlassian.net/browse/CO-1311"
+    },
+    {
+      "key": "CO-1309",
+      "summary": "Integracion Migtra",
+      "status": "Finalizada",
+      "lane": "HECHO",
+      "epic_key": "CO-659",
+      "epic_name": "Soporte Otras Áreas Kaufmann",
+      "url": "https://elevaap.atlassian.net/browse/CO-1309"
+    },
+    {
+      "key": "CO-1305",
+      "summary": "[B] Agregar búsqueda por VIN en telematics API - Wicar",
+      "status": "Finalizada",
+      "lane": "HECHO",
+      "epic_key": null,
+      "epic_name": null,
+      "url": "https://elevaap.atlassian.net/browse/CO-1305"
+    },
+    {
+      "key": "CO-1304",
+      "summary": "[WICAR] Cambiar lógica de error y adaptar nueva info del vehículos desde la api WicarMobileService (imei)",
+      "status": "Finalizada",
+      "lane": "HECHO",
+      "epic_key": "CO-1258",
+      "epic_name": "Wicar: Mejoras Usuario",
+      "url": "https://elevaap.atlassian.net/browse/CO-1304"
+    },
+    {
+      "key": "CO-1302",
+      "summary": "Cambio de firma certificados",
+      "status": "Deprecado",
+      "lane": "HECHO",
+      "epic_key": null,
+      "epic_name": null,
+      "url": "https://elevaap.atlassian.net/browse/CO-1302"
+    },
+    {
+      "key": "CO-1301",
+      "summary": "Baja usuarios Copiloto",
+      "status": "Deprecado",
+      "lane": "HECHO",
+      "epic_key": "CO-1299",
+      "epic_name": "Ciberseguridad Connect",
+      "url": "https://elevaap.atlassian.net/browse/CO-1301"
+    },
+    {
+      "key": "CO-1300",
+      "summary": "Baja usuarios Wicar",
+      "status": "Deprecado",
+      "lane": "HECHO",
+      "epic_key": "CO-1299",
+      "epic_name": "Ciberseguridad Connect",
+      "url": "https://elevaap.atlassian.net/browse/CO-1300"
+    },
+    {
+      "key": "CO-1297",
+      "summary": "[B] Servicio vencimiento automático de contratos Wicar",
+      "status": "En curso",
+      "lane": "EN CURSO",
+      "epic_key": "CO-862",
+      "epic_name": "Wicar: Mejoras administrativas",
+      "url": "https://elevaap.atlassian.net/browse/CO-1297"
+    },
+    {
+      "key": "CO-1296",
+      "summary": "[B] Revisar 42 contratos inválidos en Wicar",
+      "status": "Finalizada",
+      "lane": "HECHO",
+      "epic_key": null,
+      "epic_name": null,
+      "url": "https://elevaap.atlassian.net/browse/CO-1296"
+    },
+    {
+      "key": "CO-1295",
+      "summary": "Integración Tranciti",
+      "status": "Finalizada",
+      "lane": "HECHO",
+      "epic_key": "CO-659",
+      "epic_name": "Soporte Otras Áreas Kaufmann",
+      "url": "https://elevaap.atlassian.net/browse/CO-1295"
+    },
+    {
+      "key": "CO-1286",
+      "summary": "Orden Menu principal y subsecciones",
+      "status": "Finalizada",
+      "lane": "HECHO",
+      "epic_key": "CO-1270",
+      "epic_name": "Copiloto: Mejoras Home 2.0",
+      "url": "https://elevaap.atlassian.net/browse/CO-1286"
+    },
+    {
+      "key": "CO-1285",
+      "summary": "Edición de los niveles de servicio en la APP Wicar / Términos y condiciones",
+      "status": "Finalizada",
+      "lane": "HECHO",
+      "epic_key": null,
+      "epic_name": null,
+      "url": "https://elevaap.atlassian.net/browse/CO-1285"
+    },
+    {
+      "key": "CO-1284",
+      "summary": "Notificaciones Push - Endpoint para asociar playerId (onesignal) a consumerId(MongoDB)",
+      "status": "Finalizada",
+      "lane": "HECHO",
+      "epic_key": "CO-1258",
+      "epic_name": "Wicar: Mejoras Usuario",
+      "url": "https://elevaap.atlassian.net/browse/CO-1284"
+    },
+    {
+      "key": "CO-1282",
+      "summary": "Notificaciones Push - Crear Endpoint para crear usuario en oneSignal",
+      "status": "Finalizada",
+      "lane": "HECHO",
+      "epic_key": "CO-1258",
+      "epic_name": "Wicar: Mejoras Usuario",
+      "url": "https://elevaap.atlassian.net/browse/CO-1282"
+    },
+    {
+      "key": "CO-1277",
+      "summary": "Integrar mapa con Relieve",
+      "status": "Finalizada",
+      "lane": "HECHO",
+      "epic_key": "CO-1270",
+      "epic_name": "Copiloto: Mejoras Home 2.0",
+      "url": "https://elevaap.atlassian.net/browse/CO-1277"
+    },
+    {
+      "key": "CO-1273",
+      "summary": "Inhabilitar selección de países en header",
+      "status": "Finalizada",
+      "lane": "HECHO",
+      "epic_key": "CO-1270",
+      "epic_name": "Copiloto: Mejoras Home 2.0",
+      "url": "https://elevaap.atlassian.net/browse/CO-1273"
+    },
+    {
+      "key": "CO-1272",
+      "summary": "Integrar filtros de estado de conexión en rastreo 2.0",
+      "status": "Finalizada",
+      "lane": "HECHO",
+      "epic_key": "CO-1270",
+      "epic_name": "Copiloto: Mejoras Home 2.0",
+      "url": "https://elevaap.atlassian.net/browse/CO-1272"
+    },
+    {
+      "key": "CO-1271",
+      "summary": "Redirect copiloto.cloud a rastreo 2.0",
+      "status": "Finalizada",
+      "lane": "HECHO",
+      "epic_key": "CO-1270",
+      "epic_name": "Copiloto: Mejoras Home 2.0",
+      "url": "https://elevaap.atlassian.net/browse/CO-1271"
+    },
+    {
+      "key": "CO-1224",
+      "summary": "Backoffice Wicar Refactor Endpoints P1",
+      "status": "Finalizada",
+      "lane": "HECHO",
+      "epic_key": "CO-862",
+      "epic_name": "Wicar: Mejoras administrativas",
+      "url": "https://elevaap.atlassian.net/browse/CO-1224"
+    },
+    {
+      "key": "CO-1027",
+      "summary": "[Spike] Evaluar e implementar módulo embebible para Chatbot",
+      "status": "Finalizada",
+      "lane": "HECHO",
+      "epic_key": "CO-1276",
+      "epic_name": "Copiloto: Lucia 2.0",
+      "url": "https://elevaap.atlassian.net/browse/CO-1027"
+    }
+  ]
+}
