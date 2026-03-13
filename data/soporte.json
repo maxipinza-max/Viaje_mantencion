@@ -1,7 +1,16 @@
 {
-  "last_updated": "2026-03-12T10:31:12Z",
-  "total": 43,
+  "last_updated": "2026-03-13T10:27:47Z",
+  "total": 44,
   "stories": [
+    {
+      "key": "CO-1508",
+      "summary": "Revisión envío reportes de telemetría – Copiloto",
+      "status": "Tareas por hacer",
+      "lane": "POR HACER",
+      "epic_key": null,
+      "epic_name": null,
+      "url": "https://elevaap.atlassian.net/browse/CO-1508"
+    },
     {
       "key": "CO-1489",
       "summary": "[B] Optimizar consulta de listado general de tickets en Backoffice Wicar",
@@ -275,8 +284,8 @@
     {
       "key": "CO-1297",
       "summary": "[B] Servicio vencimiento automático de contratos Wicar",
-      "status": "En curso",
-      "lane": "EN CURSO",
+      "status": "Tareas por hacer",
+      "lane": "POR HACER",
       "epic_key": "CO-862",
       "epic_name": "Wicar: Mejoras administrativas",
       "url": "https://elevaap.atlassian.net/browse/CO-1297"
