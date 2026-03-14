@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-03-13T10:27:47Z",
+  "last_updated": "2026-03-14T10:20:15Z",
   "total": 44,
   "stories": [
     {
@@ -68,8 +68,8 @@
     {
       "key": "CO-1352",
       "summary": "Orden menu Copiloto",
-      "status": "Tareas por hacer",
-      "lane": "POR HACER",
+      "status": "Deprecado",
+      "lane": "HECHO",
       "epic_key": null,
       "epic_name": null,
       "url": "https://elevaap.atlassian.net/browse/CO-1352"
