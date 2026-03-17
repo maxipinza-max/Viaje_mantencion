@@ -1,12 +1,30 @@
 {
-  "last_updated": "2026-03-16T10:46:12Z",
-  "total": 44,
+  "last_updated": "2026-03-17T10:41:44Z",
+  "total": 46,
   "stories": [
+    {
+      "key": "CO-1515",
+      "summary": "UX - Nuevas secciones Connect",
+      "status": "En curso",
+      "lane": "EN CURSO",
+      "epic_key": null,
+      "epic_name": null,
+      "url": "https://elevaap.atlassian.net/browse/CO-1515"
+    },
+    {
+      "key": "CO-1514",
+      "summary": "usuarios no pueden ingresar a Telemetría diesel",
+      "status": "En curso",
+      "lane": "EN CURSO",
+      "epic_key": null,
+      "epic_name": null,
+      "url": "https://elevaap.atlassian.net/browse/CO-1514"
+    },
     {
       "key": "CO-1508",
       "summary": "Revisión envío reportes de telemetría – Copiloto",
-      "status": "Tareas por hacer",
-      "lane": "POR HACER",
+      "status": "En curso",
+      "lane": "EN CURSO",
       "epic_key": null,
       "epic_name": null,
       "url": "https://elevaap.atlassian.net/browse/CO-1508"
@@ -68,7 +86,7 @@
     {
       "key": "CO-1352",
       "summary": "Orden menu Copiloto",
-      "status": "Deprecado",
+      "status": "Finalizada",
       "lane": "HECHO",
       "epic_key": null,
       "epic_name": null,
